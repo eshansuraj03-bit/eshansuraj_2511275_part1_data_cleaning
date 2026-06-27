@@ -1,0 +1,98 @@
+# Cleaning Log
+
+## Project
+
+Business Data Cleaning, Validation and Excel Reporting
+
+## Dataset
+
+The raw retail order dataset contained inconsistencies in text fields, missing values, duplicate records, date issues, discount errors, and order status inconsistencies. The objective was to clean and validate the dataset to produce an analysis-ready version.
+
+# List of Issues Found
+
+The following issues were identified in the raw dataset:
+
+* Leading and trailing spaces in text fields
+* Inconsistent capitalization in customer names, categories, and locations
+* Missing values in Region and Ship Mode
+* Missing discount values
+* Negative discount values
+* Discounts exceeding the allowed business limit
+* Missing or invalid Order Date and Ship Date
+* Ship Date earlier than Order Date
+* Exact duplicate records
+* Duplicate Order IDs with conflicting information
+* Cancelled orders
+* Failed payment records
+* Refunded orders
+* Sales and profit calculation mismatches
+
+# Cleaning Actions Performed
+
+The following Excel techniques were used to clean the data:
+
+* Applied TRIM() to remove leading and trailing spaces
+* Applied SUBSTITUTE() to remove unwanted characters
+* Standardized text using PROPER() and UPPER()
+* Used Find & Replace to correct inconsistent category names
+* Converted text dates into Excel date format
+* Calculated Shipping Delay Days
+* Identified duplicate records using Conditional Formatting and COUNTIF()
+* Removed exact duplicate rows
+* Flagged conflicting duplicate Order IDs for manual review
+* Replaced missing Region values with "Unknown"
+* Replaced missing Ship Mode values with "Unknown"
+* Replaced missing Discount values with 0 only when other sales fields were valid
+* Created calculated columns for Sales, Profit, Profit Margin, Month, Year, and Data Quality Flag
+
+# Business Rules Applied
+
+* Missing Region values were replaced with "Unknown"
+* Missing Ship Mode values were replaced with "Unknown"
+* Blank Discount values were replaced with 0 only if Quantity, Unit Price, and Sales were available
+* Negative Discount values were marked as Invalid
+* Discounts above the allowed limit were marked as Invalid
+* Cancelled Orders were excluded from completed sales analysis
+* Failed Payment records were excluded from completed sales analysis
+* Refunded Orders were summarized separately
+* Ship Dates occurring before Order Dates were marked as Invalid Shipping records
+
+# Assumptions Made
+
+* Maximum allowed discount = 50%
+* Blank Discount values represent no discount when other sales fields are complete
+* Only exact duplicate rows were removed
+* Conflicting duplicate Order IDs require manual review
+* Missing Region and Ship Mode values were replaced with "Unknown" instead of deleting records
+
+# Records Removed
+
+* Exact duplicate records were removed after verification.
+* Only the first occurrence of an exact duplicate was retained.
+
+# Records Flagged
+
+The following records were retained but flagged for manual review:
+
+* Duplicate Order IDs with conflicting information
+* Invalid Shipping records
+* Negative Discount records
+* Discount values above the allowed limit
+* Records containing data quality warnings
+
+# Limitations
+
+* Business assumptions were applied where official business rules were unavailable.
+* Conflicting duplicate records require manual verification.
+* Missing values replaced with "Unknown" may reduce reporting accuracy.
+* Excel formulas cannot automatically determine the correct value for conflicting duplicate records.
+* Data quality depends on the accuracy of the original source system.
+
+# Output Files Generated
+
+* cleaned_orders.xlsx
+* data_quality_report.xlsx
+* pivot_summary.xlsx
+* cleaning_log.md
+
+The cleaned dataset is suitable for business reporting and further analysis after applying the above data cleaning and validation procedures.
